@@ -56,11 +56,16 @@ def mod(user_dn, sn, telephone_number, description, cn, c):
                     {'description': [(MODIFY_REPLACE, [description])]})
 
 
-def display(addr, dn, pwd, attr):
+def display(addr, dn, pwd, attr, obj_class):
     conn = ldap3_connection(addr, dn, pwd, credentials[3],credentials[4])
-    conn.search('dc=secne,dc=space', search_filter='(&(objectclass=*))', attributes=attr)  # , paged_size=5
+    if len(obj_class) != 0:
+        conn.search('dc=secne,dc=space', search_filter='(&(objectclass=' + str(obj_class) + '))', attributes=attr)  # , paged_size=5
+        return conn.entries
+    else:
+        conn.search('dc=secne,dc=space', search_filter='(&(objectclass=*))', attributes=attr)  # , paged_size=5
+        return conn.entries
     conn.unbind()
-    return conn.entries
+
 
 
 def add(new_user, sn, telephone_number, description, cn, c):

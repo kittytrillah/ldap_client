@@ -139,7 +139,11 @@ def add_entry():
             print("USER DN : ", user_dn)
             add(user_dn, sn, telephone_number, description, cn, credentials)
             form = SuccessForm()
+            if form.return_index_add.data:
+                return redirect('/index')
             return render_template('success_var.html', p1='Successfully added', p2=str(cn), title='Success', form=form)
+        if form.cancel.data:
+            return redirect('/index')
     return render_template('add_entry.html', title='Connected server', form=form)
 
 
@@ -150,7 +154,8 @@ def directory():
         if form.search_start.data:
             atb_s = form.search_attributes.data
             atb_list = atb_s.replace(" ", "").split(",")
-            results_s = display(credentials[0], credentials[1], credentials[2], atb_list)
+            obj_class = form.search_filter.data
+            results_s = display(credentials[0], credentials[1], credentials[2], atb_list, obj_class)
             form = ResultsForm()
             return render_template('directory_results.html', len = len(results_s), results=results_s, title='Directory results', form=form)
         elif form.search_cancel.data:
