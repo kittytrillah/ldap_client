@@ -51,7 +51,6 @@ def get():
         cursor = sqliteConnection.cursor()
         cursor.execute("SELECT * FROM credentials ORDER BY ROWID ASC LIMIT 1")
         m = cursor.fetchall()
-        print("all data from DB: ", m)
         sqliteConnection.close()
         return m
     except sqlite3.OperationalError as error:

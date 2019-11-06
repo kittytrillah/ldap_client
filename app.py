@@ -31,27 +31,17 @@ def sign_up():
         server_port = form.port.data
         use_ssl = form.use_ssl.data
         remember_me = form.remember_me.data
-        print(username, pwd, server_address,server_port,use_ssl)
-        print("data from DB: ", db_works.get())
         if len(username) == 0 or len(server_address) == 0 or len(server_port) == 0:
             data = db_works.get()
             encrypted_pwd = security.encrypt(form.password.data)
-            print("encrypted password: ", encrypted_pwd)
             if db_works.match_pass(encrypted_pwd)[0][0] == "error":
                 return redirect('/connection_error')
-            print("received pwd hash: ", db_works.match_pass(encrypted_pwd)[0])
-            print("type of received pwd hash: ", type(db_works.match_pass(encrypted_pwd)[0][0]))
             if encrypted_pwd == db_works.match_pass(encrypted_pwd)[0][0]:
-                print("Passwords matching")
                 params = db_works.get()
                 if params[0][0] == 0:
                     return redirect('/connection_error')
-                print("params: ", params)
-                print("type of params: ", type(params))
                 server_address = params[0][3]
-                print(server_address)
                 username = params[0][1]
-                print("username: ", username)
                 server_port = params[0][4]
                 if params[0][5] == 1:
                     use_ssl = True
@@ -62,20 +52,12 @@ def sign_up():
                 return redirect('/connection_error')
         if ldap3_connection(server_address, username, pwd, server_port, use_ssl):
             conn = ldap3_connection(server_address, username, pwd, server_port, use_ssl)
-            print("CONN = ", conn)
-            print(conn)
             try:
                 res = conn
                 if res == 'fail':
                     return redirect('/connection_error')
             except:
                 pass
-            # if 'no socket' in conn.socket:
-            #     return redirect('/connection_error')
-            # if not conn.bind():
-            #     print('error in bind', conn.result)
-            #     print("HOUSTON HELLO")
-            print("ldap3 connected")
             db_works.table_create()
             if form.remember_me.data:
                 ssl_val = 0
@@ -84,19 +66,11 @@ def sign_up():
                 else:
                     ssl_val = 0
                 pwd_e = security.encrypt(pwd)
-                print("encrypted password: ", pwd_e)
                 db_works.add(username, pwd_e, server_address, server_port, ssl_val)
             else:
                 if logged_with_password == 0:
                     db_works.clear()
-                username_t = username
-                pwd_t = pwd
-                server_address_t = server_address
-                server_port_t = server_port
-                use_ssl_t = use_ssl
-
             credentials = [server_address, username, pwd, server_port, use_ssl]
-            print("credentials : ", credentials)
             return redirect('/index')
         else:
             return redirect('/connection_error')
@@ -139,7 +113,6 @@ def index():
 @app.route("/add_entry", methods=["GET", "POST"])
 def add_entry():
     form = AddForm()
-    print("credential from add entry :", credentials)
     if form.validate_on_submit():
         if form.add.data:
             path = form.path.data
@@ -151,9 +124,6 @@ def add_entry():
             user_dn = "cn=" + cn + "," + path
             pwd = form.add_password.data
             pwd_hashed = security.encrypt(pwd)
-            print("PATH : ", path)
-            print("SN : ", sn)
-            print("USER DN : ", user_dn)
             add(user_dn, sn, telephone_number, description, cn, credentials, pwd_hashed)
             form_s = SuccessForm()
             if form_s.return_index_add.data:
@@ -186,7 +156,6 @@ def directory():
 @app.route('/mod', methods=["GET", "POST"])
 def modify():
     form = ModifyForm()
-    print("Modify started")
     if form.validate_on_submit():
         if form.mod_add.data:
             old_pass = form.mod_oldpass.data
