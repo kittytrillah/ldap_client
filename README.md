@@ -19,4 +19,11 @@ Usage:
 6. Everything else is understandeable from GUI
 
 
-Viktor Zaika/2019
+Known bugs:
+1. After operations of addition, entry form doesn't return to index page
+2. Sometimes issues with connecting
+
+
+
+Viktor Zaika/2019 
+UniNE, assignment
