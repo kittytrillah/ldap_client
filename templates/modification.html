@@ -24,6 +24,14 @@
             {{ form.mod_description.label }}<br>
             {{ form.mod_description(size=32) }}
         </p>
+        <p>
+            {{ form.mod_oldpass.label }}<br>
+            {{ form.mod_oldpass(size=32) }}
+        </p>
+        <p>
+            {{ form.mod_newpass.label }}<br>
+            {{ form.mod_newpass(size=32) }}
+        </p>
          <p style="width: 200px;">{{ form.mod_add() }}</p>
         <p style="width: 200px;">{{ form.mod_cancel() }}</p>
     </form>

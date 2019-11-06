@@ -44,7 +44,7 @@ def get_schema(o_c):
         return schema_res
 
 
-def mod(user_dn, sn, telephone_number, description, cn, c):
+def mod(user_dn, sn, telephone_number, description, cn, c, old_pass, new_pass):
     conn = ldap3_connection(c[0], c[1], c[2], c[3], c[4])
     if len(sn) != 0:
         conn.modify(user_dn,
@@ -55,6 +55,14 @@ def mod(user_dn, sn, telephone_number, description, cn, c):
     if len(description):
         conn.modify(user_dn,
                     {'description': [(MODIFY_REPLACE, [description])]})
+    if len(old_pass) != 0 and len(new_pass) != 0:
+        old_pass_h = security.encrypt(old_pass)
+        new_pass_h = security.encrypt(new_pass)
+        try:
+            ldap.extend.microsoft.modifyPassword.ad_modify_password(conn, user_dn, new_pass_h, old_pass_h, controls=None)
+        except:
+            print("Error - password incorrect")
+    conn.unbind()
 
 
 def display(addr, dn, pwd, attr, obj_class):
@@ -69,17 +77,18 @@ def display(addr, dn, pwd, attr, obj_class):
 
 
 
-def add(new_user, sn, telephone_number, description, cn, c):
+def add(new_user, sn, telephone_number, description, cn, c, pwd):
     conn = ldap3_connection(c[0], c[1], c[2], c[3], c[4])
     try:
         conn.add(new_user, attributes={'objectClass': ['person', 'top'],
                                     'sn': sn,
                                     'cn': cn,
                                     'telephoneNumber': telephone_number,
-                                    'description': description
+                                    'description': description,
+                                    'userPassword': pwd
                                     })
         print(">>>user Added Successfully!")
-        conn.search('dc=secne,dc=space', search_filter=f'(&(objectclass=*)(sn={sn}))', attributes=['cn', 'sn', 'objectClass', 'telephoneNumber'])
+        conn.search('dc=secne,dc=space', search_filter=f'(&(objectclass=*)(sn={sn}))', attributes=['cn', 'sn', 'objectClass', 'telephoneNumber', 'userPassword'])
         print(conn.entries)
         conn.unbind()
     except Exception as e:

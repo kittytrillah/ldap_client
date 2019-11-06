@@ -149,14 +149,18 @@ def add_entry():
             telephone_number = form.telephone_number.data
             description = form.description.data
             user_dn = "cn=" + cn + "," + path
+            pwd = form.add_password.data
+            pwd_hashed = security.encrypt(pwd)
             print("PATH : ", path)
             print("SN : ", sn)
             print("USER DN : ", user_dn)
-            add(user_dn, sn, telephone_number, description, cn, credentials)
-            form = SuccessForm()
-            if form.return_index_add.data:
+            add(user_dn, sn, telephone_number, description, cn, credentials, pwd_hashed)
+            form_s = SuccessForm()
+            if form_s.return_index_add.data:
                 return redirect('/index')
-            return render_template('success_var.html', p1='Successfully added', p2=str(cn), title='Success', form=form)
+            if form_s.return_add.data:
+                return redirect('/add_entry')
+            return render_template('success_var.html', p1='Successfully added', p2=str(cn), title='Success', form=form_s)
         if form.cancel.data:
             return redirect('/index')
     return render_template('add_entry.html', title='Connected server', form=form)
@@ -185,6 +189,8 @@ def modify():
     print("Modify started")
     if form.validate_on_submit():
         if form.mod_add.data:
+            old_pass = form.mod_oldpass.data
+            new_pass = form.mod_newpass.data
             path = form.mod_path.data
             sn = form.mod_sn.data
             global cn
@@ -192,7 +198,7 @@ def modify():
             telephone_number = form.mod_telephone_number.data
             description = form.mod_description.data
             user_dn = "cn=" + cn + "," + path
-            mod(user_dn, sn, telephone_number, description, cn, credentials)
+            mod(user_dn, sn, telephone_number, description, cn, credentials, old_pass, new_pass)
             form = SuccessForm()
             if form.return_add.data:
                 return redirect('/mod')

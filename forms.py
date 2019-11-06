@@ -32,11 +32,12 @@ class DirectoryForm(FlaskForm):
 
 
 class AddForm(FlaskForm):
-    path = StringField('Path to new entry')
-    sn = StringField('sn')
-    cn = StringField('cn')
+    path = StringField('Path to new entry', validators=[DataRequired()])
+    sn = StringField('sn', validators=[DataRequired()])
+    cn = StringField('cn', validators=[DataRequired()])
     telephone_number = StringField('Telephone Number')
     description = StringField('Description')
+    add_password = PasswordField('Password', validators=[DataRequired()])
     add = SubmitField('Add entry')
     cancel = SubmitField('Cancel')
 
@@ -47,6 +48,8 @@ class ModifyForm(FlaskForm):
     mod_sn = StringField('sn (leave empty if not to be modified)')
     mod_telephone_number = StringField('Telephone Number (leave empty if not to be modified)')
     mod_description = StringField('Description (leave empty if not to be modified)')
+    mod_oldpass = PasswordField('Old password of this entry if you want to change it')
+    mod_newpass = PasswordField('New password')
     mod_add = SubmitField('Add entry')
     mod_cancel = SubmitField('Cancel')
 
