@@ -2,10 +2,18 @@ import ldap3 as ldap
 from ldap3 import Server, Connection, ALL, SIMPLE, MODIFY_REPLACE
 from ldap3.core.tls import Tls
 from ldap3.core.exceptions import LDAPSocketOpenError
+import security
 
 
 from app import *
 credentials = []
+username_t = ''
+pwd_t = ''
+server_address_t = ''
+server_port_t = ''
+use_ssl_t = ''
+logged_with_password = 0
+cn = ''
 
 
 def ldap3_connection(address, dn, password, port_n, ssl):
