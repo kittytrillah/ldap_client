@@ -24,4 +24,6 @@ Known bugs:
 2. Sometimes issues with connecting
 
 
-Viktor Zaika/2019
+
+Viktor Zaika/2019 
+UniNE, assignment
