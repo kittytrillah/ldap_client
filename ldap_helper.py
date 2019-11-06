@@ -11,6 +11,7 @@ credentials = []
 
 def ldap3_connection(address, dn, password, port_n, ssl):
     global credentials
+    fail = False
     credentials = [address, dn, password, port_n, ssl]
     port_i = int(port_n)
     server = Server(address, port=port_i, use_ssl=ssl, get_info=ALL)
@@ -20,12 +21,17 @@ def ldap3_connection(address, dn, password, port_n, ssl):
         print(">>>LDAP Bind Successful. ")
         conn.open()
         conn.bind()
-    except ldap.core.exceptions.LDAPSocketOpenError as e:
-        print('LDAP Bind Failed : ', e)
+    except:
+        print('LDAP Bind Failed')
         m = 'fail'
+        fail = True
         return m
+    # except ldap.core.exceptions.LDAPInvalidCredentialsResult as e:
     finally:
-        return conn
+        if fail:
+            return m
+        else:
+            return conn
 
 
 def get_schema(o_c):

@@ -22,11 +22,6 @@ cn = ''
 def sign_up():
     form = LoginForm()
     global logged_with_password #Flag which determines where we will get credentials from
-    global username_t
-    global pwd_t
-    global server_address_t
-    global server_port_t
-    global use_ssl_t
     global credentials
     credentials = []
     if form.validate_on_submit():
@@ -67,9 +62,19 @@ def sign_up():
                 return redirect('/connection_error')
         if ldap3_connection(server_address, username, pwd, server_port, use_ssl):
             conn = ldap3_connection(server_address, username, pwd, server_port, use_ssl)
-            if not conn.bind():
-                print('error in bind', conn.result)
-                print("HOUSTON HELLO")
+            print("CONN = ", conn)
+            print(conn)
+            try:
+                res = conn
+                if res == 'fail':
+                    return redirect('/connection_error')
+            except:
+                pass
+            # if 'no socket' in conn.socket:
+            #     return redirect('/connection_error')
+            # if not conn.bind():
+            #     print('error in bind', conn.result)
+            #     print("HOUSTON HELLO")
             print("ldap3 connected")
             db_works.table_create()
             if form.remember_me.data:
