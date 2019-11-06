@@ -1,13 +1,8 @@
-import ldap3 as ldap
-from ldap3 import Server, Connection, ALL, SIMPLE, MODIFY_REPLACE
-from ldap3.core.tls import Tls
-from ldap3.core.exceptions import LDAPSocketOpenError
 from flask import Flask, g, request, session, redirect, url_for, render_template, flash
 from forms import *
 from ldap_helper import *
 import db_works
 import security
-import sqlite3
 
 
 app = Flask(__name__)
@@ -26,6 +21,12 @@ cn = ''
 @app.route("/", methods=["GET", "POST"])
 def sign_up():
     form = LoginForm()
+    global logged_with_password #Flag which determines where we will get credentials from
+    global username_t
+    global pwd_t
+    global server_address_t
+    global server_port_t
+    global use_ssl_t
     if form.validate_on_submit():
         username = form.username.data
         pwd = form.password.data
@@ -216,5 +217,3 @@ def schema():
         if form.schema_back:
             return redirect('/index')
     return render_template('schema.html', title='Schema', form=form)
-
-

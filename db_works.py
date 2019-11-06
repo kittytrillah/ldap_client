@@ -32,10 +32,17 @@ def add(username, pwd, server_address, server_port, ssl_val):
 
 
 def clear():
-    sqliteConnection = sqlite3.connect('uldap.db')
-    cursor = sqliteConnection.cursor()
-    cursor.execute("DROP TABLE credentials;")
-    sqliteConnection.close()
+    try:
+        sqliteConnection = sqlite3.connect('uldap.db')
+        cursor = sqliteConnection.cursor()
+        cursor.execute("DROP TABLE credentials;")
+        sqliteConnection.close()
+    except sqlite3.Error as error:
+        print("Error while connecting to sqlite", error)
+    finally:
+        if (sqliteConnection):
+            sqliteConnection.close()
+            print("The SQLite connection is closed")
 
 
 def get():
