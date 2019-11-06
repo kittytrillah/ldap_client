@@ -27,6 +27,8 @@ def sign_up():
     global server_address_t
     global server_port_t
     global use_ssl_t
+    global credentials
+    credentials = []
     if form.validate_on_submit():
         username = form.username.data
         pwd = form.password.data
@@ -64,6 +66,11 @@ def sign_up():
             else:
                 return redirect('/connection_error')
         if ldap3_connection(server_address, username, pwd, server_port, use_ssl):
+            conn = ldap3_connection(server_address, username, pwd, server_port, use_ssl)
+            if not conn.bind():
+                print('error in bind', conn.result)
+                print("HOUSTON HELLO")
+            print("ldap3 connected")
             db_works.table_create()
             if form.remember_me.data:
                 ssl_val = 0
@@ -82,10 +89,12 @@ def sign_up():
                 server_address_t = server_address
                 server_port_t = server_port
                 use_ssl_t = use_ssl
-            global credentials
+
             credentials = [server_address, username, pwd, server_port, use_ssl]
             print("credentials : ", credentials)
             return redirect('/index')
+        else:
+            return redirect('/connection_error')
     return render_template('login.html', title='Connect to server', form=form)
 
 

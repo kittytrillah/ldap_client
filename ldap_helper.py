@@ -4,16 +4,9 @@ from ldap3.core.tls import Tls
 from ldap3.core.exceptions import LDAPSocketOpenError
 import security
 
-
-from app import *
 credentials = []
-username_t = ''
-pwd_t = ''
-server_address_t = ''
-server_port_t = ''
-use_ssl_t = ''
-logged_with_password = 0
-cn = ''
+
+
 
 
 def ldap3_connection(address, dn, password, port_n, ssl):
@@ -29,6 +22,8 @@ def ldap3_connection(address, dn, password, port_n, ssl):
         conn.bind()
     except ldap.core.exceptions.LDAPSocketOpenError as e:
         print('LDAP Bind Failed : ', e)
+        m = 'fail'
+        return m
     finally:
         return conn
 
@@ -69,11 +64,6 @@ def display(addr, dn, pwd, attr, obj_class):
 
 
 def add(new_user, sn, telephone_number, description, cn, c):
-    ssl_bool = False
-    if use_ssl_t == '1':
-        ssl_bool = True
-    print("connection with:", c[0], c[1], c[2], c[3], c[4])
-    print("new user: ", new_user)
     conn = ldap3_connection(c[0], c[1], c[2], c[3], c[4])
     try:
         conn.add(new_user, attributes={'objectClass': ['person', 'top'],
@@ -85,6 +75,7 @@ def add(new_user, sn, telephone_number, description, cn, c):
         print(">>>user Added Successfully!")
         conn.search('dc=secne,dc=space', search_filter=f'(&(objectclass=*)(sn={sn}))', attributes=['cn', 'sn', 'objectClass', 'telephoneNumber'])
         print(conn.entries)
+        conn.unbind()
     except Exception as e:
         print("user not added : ", e)
 
@@ -92,3 +83,4 @@ def add(new_user, sn, telephone_number, description, cn, c):
 def delete_entry(cn):
     conn = ldap3_connection(credentials[0], credentials[1], credentials[2], credentials[3], credentials[4])
     conn.delete(cn)
+    conn.unbind()
