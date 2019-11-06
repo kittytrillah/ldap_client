@@ -2,6 +2,14 @@
 Simple LDAP client with database and flask
 
 
+Functions:
+1. Get schema
+2. Search by criteria
+3. Add entry
+4. Modify entry
+5. Remove entry
+
+
 Usage:
 1. Run the server
 2. Follow the GUI
