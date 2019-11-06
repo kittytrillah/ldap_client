@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="41b835f6-73a0-4e4a-961e-e43d8edf99a8" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ldap_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/ldap_helper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/uldap.db" beforeDir="false" afterPath="$PROJECT_DIR$/uldap.db" afterDir="false" />
-    </list>
+    <list default="true" id="41b835f6-73a0-4e4a-961e-e43d8edf99a8" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -192,12 +188,12 @@
       <workItem from="1572918287690" duration="945000" />
       <workItem from="1572928620182" duration="601000" />
       <workItem from="1572930908122" duration="53916000" />
-      <workItem from="1573027396730" duration="6875000" />
+      <workItem from="1573027396730" duration="7363000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="62337000" />
+    <option name="totallyTimeSpent" value="62825000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="704" extended-state="6" />
