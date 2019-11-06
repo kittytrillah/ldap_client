@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{{p1}}</h1>
+     <p> Entry {{p2}} was added/modified/deleted </p>
+    <form action="" method="post" novalidate text-align: center;>
+        {{ form.hidden_tag() }}
+         <p style="width: 200px;">{{ form.return_index_add() }}</p>
+         <p style="width: 200px;">{{ form.return_add() }}</p>
+    </form>
+{% endblock %}

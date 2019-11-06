@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Schema</h1>
+    <p1>{{ param }}</p1>
+    <form action="" method="post" novalidate text-align: center;>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.schema_objclass.label }}<br>
+            {{ form.schema_objclass(size=32) }}
+        </p>
+        <p style="width: 200px;">{{ form.schema_get() }}</p>
+         <p style="width: 200px;">{{ form.schema_back() }}</p>
+    </form>
+{% endblock %}

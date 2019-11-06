@@ -1,0 +1,23 @@
+<html>
+    <head >
+      {% if title %}
+      <title>{{ title }} - ULDAP</title>
+      {% else %}
+      <title>ULDAP</title>
+      {% endif %}
+    <link rel="stylesheet" media="screen" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+     <meta name="viewport" content="width=device-width, initial-scale=0.75">
+
+    </head>
+    <div class="content" style="
+    width: 500px;
+    margin-left: 25px;
+">
+    <body text-align: center>
+        <div>ULDAP - ultra light LDAP client</div>
+        <hr>
+        {% block content %}{% endblock %}
+    </body>
+    </div>
+</html>

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>New entry</h1>
+    <form action="" method="post" novalidate text-align: center;>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.path.label }}<br>
+            {{ form.path(size=32) }}
+        </p>
+         <p>
+            {{ form.sn.label }}<br>
+            {{ form.sn(size=32) }}
+        </p>
+        <p>
+            {{ form.cn.label }}<br>
+            {{ form.cn(size=32) }}
+        </p>
+        <p>
+            {{ form.telephone_number.label }}<br>
+            {{ form.telephone_number(size=32) }}
+        </p>
+        <p>
+            {{ form.description.label }}<br>
+            {{ form.description(size=32) }}
+        </p>
+         <p style="width: 200px;">{{ form.add() }}</p>
+        <p style="width: 200px;">{{ form.cancel() }}</p>
+    </form>
+{% endblock %}

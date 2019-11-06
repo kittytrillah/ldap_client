@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Search</h1>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.search_path.label }}<br>
+            {{ form.search_path(size=32) }}
+        </p>
+        <p>
+            {{ form.search_filter.label }}<br>
+            {{ form.search_filter(size=32) }}
+        </p>
+        <p>
+            {{ form.search_attributes.label }}<br>
+            {{ form.search_attributes(size=32) }}
+        </p>
+        <p style="width: 200px;">{{ form.search_start() }}</p>
+        <p style="width: 200px;">{{ form.search_cancel() }}</p>
+    </form>
+    <footer><p>*Add attributes separated by commas</p></footer>
+{% endblock %}

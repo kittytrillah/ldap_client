@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>You're connected</h1>
+    <p>Server: {{ server_val }}</p>
+    <form action="" method="post" novalidate text-align: center;>
+        {{ form.hidden_tag() }}
+         <p style="width: 200px;">{{ form.directory() }}</p>
+        <p style="width: 200px;">{{ form.schema() }}</p>
+         <p style="width: 200px;">{{ form.add() }}</p>
+         <p style="width: 200px;">{{ form.remove() }}</p>
+         <p style="width: 200px;">{{ form.modify() }}</p>
+         <p style="width: 200px;">{{ form.exit() }}</p>
+        <p style="width: 200px;">{{ form.forget() }}</p>
+    </form>
+{% endblock %}

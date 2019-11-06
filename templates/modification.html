@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Entry modification</h1>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.mod_cn.label }}<br>
+            {{ form.mod_cn(size=32) }}
+        </p>
+        <p>
+            {{ form.mod_path.label }}<br>
+            {{ form.mod_path(size=32) }}
+        </p>
+         <p>
+            {{ form.mod_sn.label }}<br>
+            {{ form.mod_sn(size=32) }}
+        </p>
+        <p>
+            {{ form.mod_telephone_number.label }}<br>
+            {{ form.mod_telephone_number(size=32) }}
+        </p>
+        <p>
+            {{ form.mod_description.label }}<br>
+            {{ form.mod_description(size=32) }}
+        </p>
+         <p style="width: 200px;">{{ form.mod_add() }}</p>
+        <p style="width: 200px;">{{ form.mod_cancel() }}</p>
+    </form>
+{% endblock %}

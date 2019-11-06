@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Connect to server</h1>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.username.label }}<br>
+            {{ form.username(size=32) }}
+        </p>
+        <p>
+            {{ form.password.label }}<br>
+            {{ form.password(size=32) }}
+        </p>
+        <p>
+            {{ form.server_address.label }}<br>
+            {{ form.server_address(size=32) }}
+        </p>
+        <p>
+            {{ form.port.label }}<br>
+            {{ form.port(size=32) }}
+        </p>
+        <p>{{ form.use_ssl() }} {{ form.use_ssl.label }}</p>
+        <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+        <p style="width: 200px;">{{ form.submit(size=32) }}</p>
+    </form>
+    <footer><p>*If you've chosen "Remember me" previously, you can simply input a password</p></footer>
+{% endblock %}

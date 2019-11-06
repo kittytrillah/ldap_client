@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Results</h1>
+<!-- Adding some style to table (OPTIONAL) -->
+<style type="text/css">
+
+    th:tr{
+        color: blue;
+
+    }
+    tr:nth-of-type(2n){
+        border: 1px solid black;
+        background-color: rgba(150, 150, 150, 0.5);
+
+    }
+
+    td{
+        padding: 8px 8px;
+        border: 1px solid black;
+    }
+</style>
+
+<body>
+
+<table style="margin-left: 20px;">
+<!-- Table headers -->
+    <th>
+        <tr style="color: green; ">
+        <td>Index</td>
+        <td>Data</td>
+</tr>
+    </th>
+
+<!-- For loop logic of jinja template -->
+{%for i in range(0, len)%}
+
+<!-- table rows -->
+<tr>
+    <td>{{i}}</td>
+    <td>{{results[i]}}</td>
+
+{%endfor%}
+
+</tr>
+
+</table>
+
+
+</body>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p style="width: 200px;">{{ form.results_back_index() }}</p>
+
+    </form>
+    <footer><p>*Add attributes separated by commas</p></footer>
+{% endblock %}
